@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "403a8471-f7f3-4bd8-9769-086654540dd5",
+		"name": "WDV4416-Integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13317617"
+	},
+	"item": [
+		{
+			"name": "user - GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response message is 'Successful GET'\", ()=> {",
+							"    pm.response.to.have.jsonBody(\"message\", \"Successful GET\")",
+							"})",
+							"",
+							"pm.test(\"User object has correct properties\", function () {",
+							"    const user = pm.response.json().user;",
+							"    pm.expect(user).to.have.property(\"name\", \"WDV 4416\");",
+							"    pm.expect(user).to.have.property(\"address\", \"123 Full Sail Uni\");",
+							"    pm.expect(user).to.have.property(\"city\", \"Winter Park\");",
+							"    pm.expect(user).to.have.property(\"state\", \"FL\");",
+							"    pm.expect(user).to.have.property(\"zip\", \"32792\");",
+							"    pm.expect(user).to.have.property(\"ccNumber\", \"1234567813572468\");",
+							"    pm.expect(user).to.have.property(\"ssn\", \"55512345\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct metadata\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"message\");",
+							"    pm.expect(jsonData).to.have.property(\"user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response message is 'Successful POST'\", function () {",
+							"    pm.response.to.have.jsonBody(\"message\", \"Successful POST\");",
+							"});",
+							"",
+							"pm.test(\"Payload matches the request data\", function () {",
+							"    const requestData = JSON.parse(pm.request.body.raw); ",
+							"    const responseData = pm.response.json().user; ",
+							"",
+							"    pm.expect(responseData).to.deep.equal(requestData);  ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has correct metadata structure\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"message\");",
+							"    pm.expect(jsonData).to.have.property(\"user\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n         \n            \"name\": \"WDV 4416\",\n            \"address\": \"123 Full Sail Uni\",\n            \"city\": \"Winter Park\",\n            \"state\": \"FL\",\n            \"zip\": 32792,\n            \"ccNumber\": 1234567813572468,\n            \"ssn\": 55512345\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - PATCH",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response message is 'Successful PATCH'\", function () {",
+							"    pm.response.to.have.jsonBody(\"message\", \"Successful PATCH\");",
+							"});",
+							"",
+							"pm.test(\"User object contains updated data and correct ID\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const requestId = pm.request.url.toString().split('/').pop(); ",
+							"    pm.expect(jsonData.user).to.have.property(\"_id\", requestId);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Metadata is correct\", function () {",
+							"    const metadata = pm.response.json().metadata;",
+							"    pm.expect(metadata).to.have.property(\"modifiedCount\", 1);",
+							"    pm.expect(metadata).to.have.property(\"acknowledged\", true);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \n            \"name\": \"WDV 4416\",\n            \"address\": \"123 Full Sail Uni\",\n            \"city\": \"Winter Park\",\n            \"state\": \"FL\",\n            \"zip\": 32794,\n            \"ccNumber\": 1234567813572468,\n            \"ssn\": 55512345\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response message is 'Successful DELETE'\", function () {",
+							"    pm.response.to.have.jsonBody(\"message\", \"Successful DELETE\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"User is null after deletion\", function () {",
+							"    pm.expect(pm.response.json().user).to.be.null;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Metadata is correct\", function () {",
+							"    const metadata = pm.response.json().metadata;",
+							"    pm.expect(metadata).to.have.property(\"modifiedCount\", 1);",
+							"    pm.expect(metadata).to.have.property(\"acknowledged\", true);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"name\": \"WDV 4416\",\n            \"address\": \"123 Full Sail Uni\",\n            \"city\": \"Winter Park\",\n            \"state\": \"FL\",\n            \"zip\": 32792,\n            \"ccNumber\": 1234567813572468,\n            \"ssn\": 55512345\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
