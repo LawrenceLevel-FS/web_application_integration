@@ -57,5 +57,12 @@ module.exports = creditCardObsure; // export for testing
 
 ## Week Two
 
+### Postman
 This week covers integration testing using postman
 ![postman image](https://user-images.githubusercontent.com/49151885/96122371-ad293c00-0ef1-11eb-9e1d-ef148ee03d73.png)
+
+- We used pm.test() to test the end points of GET, POST, PUT/PATCH, and DELETE.
+
+### Selenium
+![selenium testing](https://www.perfecto.io/sites/default/files/image/2020-05/social-blog-automated-testing-selenium.png)
+- We used selenium to test proper frontend capabilities.
