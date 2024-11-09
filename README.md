@@ -56,6 +56,7 @@ module.exports = creditCardObsure; // export for testing
 ```
 
 ## Week Two
+(assignment in week2/wdvwai-seleniumOnNextJS/main.test.js )
 
 ### Postman
 This week covers integration testing using postman
