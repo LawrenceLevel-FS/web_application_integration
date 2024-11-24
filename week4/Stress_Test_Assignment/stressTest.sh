@@ -1,0 +1,1 @@
+jmeter -n -t "Stress Test Assignment Test Plan.jmx" -l "results.jtl" -e -o "report"
