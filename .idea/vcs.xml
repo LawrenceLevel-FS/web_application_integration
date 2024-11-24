@@ -4,5 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/week2/wdv4416-miniServer" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/week2/wdvwai-seleniumOnNextJS" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/week3/wdvwai-4416-3-3-LoadTesting" vcs="Git" />
   </component>
 </project>
